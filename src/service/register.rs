@@ -281,9 +281,6 @@ pub fn register_extended(
 /// # }
 /// ```
 #[allow(clippy::too_many_arguments)]
-pub fn register(
-	reg_type: &str,
-	port: u16,
-) -> io::Result<Register> {
+pub fn register(reg_type: &str, port: u16) -> io::Result<Register> {
 	register_extended(reg_type, port, RegisterData::default())
 }

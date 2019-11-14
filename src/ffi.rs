@@ -65,7 +65,7 @@ macro_rules! c_api_enum {
 }
 
 pub type DNSServiceErrorType = i32;
-c_api_enum!{DNSServiceNoError: i32 =>
+c_api_enum! {DNSServiceNoError: i32 =>
 	NoError               = 0,
 	// windows "TCP Connection Status"
 	ConnectionPending     = -65570,
@@ -76,7 +76,7 @@ c_api_enum!{DNSServiceNoError: i32 =>
 	ConfigChanged         = -65791,
 	MemFree               = -65792,
 }
-c_api_enum!{
+c_api_enum! {
 /// Known error codes
 ///
 /// See [`DNSServiceErrorType`](https://developer.apple.com/documentation/dnssd/1823426-anonymous)
@@ -291,52 +291,51 @@ extern "C" {
 // TXTRecordRef utils not wrapped - should be easy enough to implement
 // in pure rust
 
-/* Not used so far:
-#[cfg(windows)]
-mod ffi_windows {
-	use super::DNSServiceErrorType;
-	use std::os::raw::{
-		c_int,
-		c_void,
-	};
-
-	pub type DNSServiceInitializeFlags = u32;
-	pub const INITIALIZE_FLAGS_NONE: DNSServiceInitializeFlags = 0x0;
-	pub const INITIALIZE_FLAGS_ADVERTISE: DNSServiceInitializeFlags = 0x1;
-	pub const INITIALIZE_FLAGS_NO_SERVER_CHECK: DNSServiceInitializeFlags = 0x2;
-
-	pub type DNSPropertyCode = u32;
-
-	pub const PROPERTY_CODE_VERSION: DNSPropertyCode = 0x76657273;
-	#[repr(C)]
-	pub struct DnsPropertyVersion {
-		pub code: DNSPropertyCode,
-
-		pub client_current_version: u32,
-		pub client_oldest_server_version: u32,
-		pub server_current_version: u32,
-		pub server_oldest_client_version: u32,
-	}
-
-	extern "C" {
-		pub fn DNSServiceInitialize(
-			inFlags: DNSServiceInitializeFlags,
-			inCacheEntryCount: c_int,
-		) -> DNSServiceErrorType;
-		pub fn DNSServiceFinalize();
-		pub fn DNSServiceCheckVersion() -> DNSServiceErrorType;
-
-		// TODO? DNSPropertyData on windows.
-		// the c API uses a union... - using void instead here
-		pub fn DNSServiceCopyProperty(
-			inCode: DNSPropertyCode,
-			outData: *mut c_void,
-		) -> DNSServiceErrorType;
-		pub fn DNSServiceReleaseProperty(
-			inData: *mut c_void,
-		) -> DNSServiceErrorType;
-	}
-}
-#[cfg(windows)]
-pub use self::ffi_windows::*;
-*/
+// Not used so far:
+// #[cfg(windows)]
+// mod ffi_windows {
+// use super::DNSServiceErrorType;
+// use std::os::raw::{
+// c_int,
+// c_void,
+// };
+//
+// pub type DNSServiceInitializeFlags = u32;
+// pub const INITIALIZE_FLAGS_NONE: DNSServiceInitializeFlags = 0x0;
+// pub const INITIALIZE_FLAGS_ADVERTISE: DNSServiceInitializeFlags = 0x1;
+// pub const INITIALIZE_FLAGS_NO_SERVER_CHECK: DNSServiceInitializeFlags = 0x2;
+//
+// pub type DNSPropertyCode = u32;
+//
+// pub const PROPERTY_CODE_VERSION: DNSPropertyCode = 0x76657273;
+// #[repr(C)]
+// pub struct DnsPropertyVersion {
+// pub code: DNSPropertyCode,
+//
+// pub client_current_version: u32,
+// pub client_oldest_server_version: u32,
+// pub server_current_version: u32,
+// pub server_oldest_client_version: u32,
+// }
+//
+// extern "C" {
+// pub fn DNSServiceInitialize(
+// inFlags: DNSServiceInitializeFlags,
+// inCacheEntryCount: c_int,
+// ) -> DNSServiceErrorType;
+// pub fn DNSServiceFinalize();
+// pub fn DNSServiceCheckVersion() -> DNSServiceErrorType;
+//
+// TODO? DNSPropertyData on windows.
+// the c API uses a union... - using void instead here
+// pub fn DNSServiceCopyProperty(
+// inCode: DNSPropertyCode,
+// outData: *mut c_void,
+// ) -> DNSServiceErrorType;
+// pub fn DNSServiceReleaseProperty(
+// inData: *mut c_void,
+// ) -> DNSServiceErrorType;
+// }
+// }
+// #[cfg(windows)]
+// pub use self::ffi_windows::*;

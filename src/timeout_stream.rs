@@ -40,7 +40,9 @@ impl<S: futures::Stream> TimeoutStream<S> {
 		Ok(TimeoutStream {
 			stream,
 			duration,
-			timeout: tokio::timer::Delay::new(std::time::Instant::now() + duration),
+			timeout: tokio::timer::Delay::new(
+				std::time::Instant::now() + duration,
+			),
 		})
 	}
 }
@@ -62,14 +64,17 @@ impl<E: Into<io::Error>> TimeoutStreamError<E> {
 	pub fn into_io_error(self) -> io::Error {
 		match self {
 			TimeoutStreamError::StreamError(e) => e.into(),
-			TimeoutStreamError::TimeoutError(e) => io::Error::new(io::ErrorKind::Other, e),
+			TimeoutStreamError::TimeoutError(e) => {
+				io::Error::new(io::ErrorKind::Other, e)
+			},
 		}
 	}
 }
 
 impl<S: futures::Stream> TimeoutStream<S> {
 	fn reset_timer(&mut self) {
-		self.timeout.reset(std::time::Instant::now() + self.duration);
+		self.timeout
+			.reset(std::time::Instant::now() + self.duration);
 	}
 }
 

@@ -178,9 +178,6 @@ pub fn query_record_extended(
 ///
 /// [`query_record_extended`]: fn.query_record_extended.html
 /// [`QueryRecordData`]: struct.QueryRecordData.html
-pub fn query_record(
-	fullname: &str,
-	rr_type: Type,
-) -> io::Result<QueryRecord> {
+pub fn query_record(fullname: &str, rr_type: Type) -> io::Result<QueryRecord> {
 	query_record_extended(fullname, rr_type, QueryRecordData::default())
 }

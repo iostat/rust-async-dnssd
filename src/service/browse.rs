@@ -140,10 +140,7 @@ impl<'a> Default for BrowseData<'a> {
 /// `reg_type` specifies the service type to search, e.g. `"_ssh._tcp"`.
 ///
 /// See [`DNSServiceBrowse`](https://developer.apple.com/documentation/dnssd/1804742-dnsservicebrowse).
-pub fn browse_extended(
-	reg_type: &str,
-	data: BrowseData,
-) -> io::Result<Browse> {
+pub fn browse_extended(reg_type: &str, data: BrowseData) -> io::Result<Browse> {
 	::init();
 
 	let reg_type = cstr::CStr::from(&reg_type)?;

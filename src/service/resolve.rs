@@ -15,9 +15,9 @@ use ffi;
 use interface::Interface;
 use raw;
 use service::{
+	resolve_host_extended,
 	ResolveHost,
 	ResolveHostData,
-	resolve_host_extended,
 };
 
 type CallbackStream = ::stream::ServiceStream<ResolveResult>;
@@ -57,7 +57,7 @@ impl ResolveResult {
 	pub fn resolve_socket_address(&self) -> io::Result<ResolveHost> {
 		let rhdata = ResolveHostData {
 			interface: self.interface,
-			.. Default::default()
+			..Default::default()
 		};
 		resolve_host_extended(&self.host_target, self.port, rhdata)
 	}

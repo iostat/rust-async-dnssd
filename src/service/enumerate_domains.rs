@@ -113,14 +113,12 @@ pub fn enumerate_domains(
 ) -> io::Result<EnumerateDomains> {
 	::init();
 
-	Ok(EnumerateDomains(CallbackStream::new(
-		move |sender| {
-			raw::DNSService::enumerate_domains(
-				enumerate.into(),
-				interface.into_raw(),
-				Some(enumerate_callback),
-				sender,
-			)
-		},
-	)?))
+	Ok(EnumerateDomains(CallbackStream::new(move |sender| {
+		raw::DNSService::enumerate_domains(
+			enumerate.into(),
+			interface.into_raw(),
+			Some(enumerate_callback),
+			sender,
+		)
+	})?))
 }
